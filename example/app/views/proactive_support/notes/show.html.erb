@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @note.user_id %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @note.message %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @note.level %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @note.tags %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @note.is_active %>
+</p>
+
+<%= link_to 'Edit', edit_note_path(@note) %> |
+<%= link_to 'Back', notes_path %>
