@@ -29,7 +29,15 @@ module ProactiveSupport
         end
 
         def clear(customer_id, source, identifier, filter)
-          ::ProactiveSupport::Flag.where(customer_id: customer_id, is_active: true).update_all({is_active: false}, {digest: to_digest(source, identifier, filter)})
+          clear_matching customer_id, {digest: to_digest(source, identifier, filter)}
+        end
+
+        def clear_identifier(customer_id, source, identifier)
+          clear_matching customer_id, {source: source, identifier: identifier}
+        end
+
+        def clear_source(customer_id, source)
+          clear_matching customer_id, {source: source}
         end
 
         private
@@ -37,6 +45,10 @@ module ProactiveSupport
         def to_digest(source, identifier, filter)
           x = "#{source}:#{identifier}:#{filter}"
           ::Digest::SHA1.base64digest x
+        end
+
+        def clear_matching(customer_id, conditions)
+          ::ProactiveSupport::Flag.where(customer_id: customer_id, is_active: true).update_all({is_active: false}, conditions)
         end
       end
     end
