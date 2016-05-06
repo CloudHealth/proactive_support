@@ -14,6 +14,7 @@ class CreateProactiveSupportFlags < ActiveRecord::Migration
       t.string :tags
       t.datetime :last_triggered_at
       t.boolean :is_active, default: true
+      t.boolean :is_transient, default: true
 
       t.timestamps null: false
     end

@@ -22,6 +22,7 @@ module ProactiveSupport
             f.level = options[:level]
             f.debug_params = options[:debug_params]
             f.tags = options[:tags]
+            f.is_transient = options[:is_transient]
             f.last_triggered_at = ::Time.now
             f.is_active = true
             f.save!

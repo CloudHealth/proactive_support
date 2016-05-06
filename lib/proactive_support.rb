@@ -12,7 +12,13 @@ module ProactiveSupport
   autoload :Note, ::File.expand_path('../../app/models/proactive_support/note.rb', __FILE__)
   autoload :Flag, ::File.expand_path('../../app/models/proactive_support/flag.rb', __FILE__)
 
+  class Configuration
+    attr_accessor :transient_expiration
+  end
+
   class << self
+    attr_writer :configuration
+
     def level_to_bootstrap(level)
       case level
         when INFO then 'info'
@@ -21,6 +27,17 @@ module ProactiveSupport
         else ''
       end
     end
+  end
+
+  module_function
+  def configuration
+    @configuration ||= Configuration.new.tap do |c|
+      c.transient_expiration = 1.day
+    end
+  end
+
+  def configure
+    yield(configuration)
   end
 end
 
