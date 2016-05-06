@@ -8,7 +8,7 @@ module ProactiveSupport
             n.user_id = user_id
             n.title = title
             n.content = options[:content]
-            n.level = options[:level]
+            n.level = options[:level] || ::ProactiveSupport::INFO
             n.tags = options[:tags]
             n.is_active = true
             n.save!

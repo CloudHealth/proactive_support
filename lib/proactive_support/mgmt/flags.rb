@@ -10,8 +10,8 @@ module ProactiveSupport
             f.identifier = identifier
             f.filter = HashWithIndifferentAccess.new filter
             f.message = message
-            f.level = options[:level]
-            f.debug_params = options[:debug_params]
+            f.level = options[:level] || ::ProactiveSupport::INFO
+            f.debug_params = HashWithIndifferentAccess.new options[:debug_params]
             f.tags = options[:tags]
             f.is_transient = options.fetch(:transient, true) ? true : false
             f.last_triggered_at = ::Time.now
