@@ -17,6 +17,8 @@ class CreateProactiveSupportFlags < ActiveRecord::Migration
       t.boolean :is_transient, default: true
 
       t.timestamps null: false
+
+      t.index [:customer_id, :digest], unique: true
     end
   end
 end
