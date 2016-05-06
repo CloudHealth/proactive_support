@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.require_paths = %w(lib)
 
-  s.add_dependency 'rails', '>= 3'
+  s.add_dependency 'activerecord', '>= 3'
 
   s.add_development_dependency 'sqlite3'
 end
