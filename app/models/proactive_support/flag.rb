@@ -1,5 +1,7 @@
 module ProactiveSupport
   class Flag < ::ActiveRecord::Base
+    self.table_name = 'proactive_support_flags' # Needed for activerecord-jdbc-adapter
+
     belongs_to :customer
 
     validates_presence_of :customer_id, :source, :identifier, :message

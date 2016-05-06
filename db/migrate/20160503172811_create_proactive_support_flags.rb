@@ -7,9 +7,9 @@ class CreateProactiveSupportFlags < ActiveRecord::Migration
       t.string :source, null: false
       t.string :identifier, null: false
       t.string :message, null: false
-      t.string :filter
+      t.text :filter
 
-      t.string :debug_params
+      t.text :debug_params
       t.integer :level, default: 0
       t.string :tags
       t.datetime :last_triggered_at
