@@ -5,16 +5,7 @@ module ProactiveSupport
         def set(customer_id, source, identifier, filter, message, options = {})
           digest = to_digest source, identifier, filter
 
-          f = ::ProactiveSupport::Flag.where(customer_id: customer_id, is_active: true, digest: digest).first
-          if f
-            f.last_triggered_at = ::Time.now
-            f.save!
-            return f
-          end
-
-          ::ProactiveSupport::Flag.new.tap do |f|
-            f.customer_id = customer_id
-            f.digest = digest
+          ::ProactiveSupport::Flag.find_or_initialize_by_customer_id_and_digest(customer_id, digest).tap do |f|
             f.source = source
             f.identifier = identifier
             f.filter = HashWithIndifferentAccess.new filter
