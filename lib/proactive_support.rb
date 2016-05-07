@@ -12,8 +12,10 @@ module ProactiveSupport
   autoload :Note, ::File.expand_path('../../app/models/proactive_support/note.rb', __FILE__)
   autoload :Flag, ::File.expand_path('../../app/models/proactive_support/flag.rb', __FILE__)
 
+  class AlertAdapterNotConfigured < ::StandardError; end
+
   class Configuration
-    attr_accessor :transient_expiration
+    attr_accessor :transient_expiration, :alert_adapter
   end
 
   class << self
@@ -43,3 +45,4 @@ end
 
 require 'proactive_support/mgmt/flags'
 require 'proactive_support/mgmt/notes'
+require 'proactive_support/mgmt/alerts'
