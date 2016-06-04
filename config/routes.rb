@@ -1,5 +1,5 @@
 ProactiveSupport::Engine.routes.draw do
-  root to: 'proactive_support#index'
+  root to: 'dashboard#index'
   resources :notes
   resources :flags do
     collection do
