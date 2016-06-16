@@ -2,10 +2,11 @@ module ProactiveSupport
   module FlagsHelper
     def get_flag_groupings(customer_id = nil, filter_transients = true)
       flags = {}
-      ar = ::ProactiveSupport::Flag.where(is_active: true)
+      ar = ::ProactiveSupport::Flag.includes(:customer).where(is_active: true)
       ar = ar.where(customer_id: customer_id) if customer_id
       ar = ar.filter_transients if filter_transients
       ar.each do |f|
+        next if customer_id.nil? && (f.customer.nil? || f.customer.is_deleted)
         flags[f.level] ||= {}
         flags[f.level][f.source] ||= {}
         flags[f.level][f.source][f.identifier] ||= {message: f.message, count: 0, transients: 0}
