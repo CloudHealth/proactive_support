@@ -8,10 +8,10 @@ module ProactiveSupport
           ::ProactiveSupport::Flag.find_or_initialize_by_customer_id_and_digest(customer_id, digest).tap do |f|
             f.source = source
             f.identifier = identifier
-            f.filter = HashWithIndifferentAccess.new filter
+            f.filter = clean_object filter
             f.message = message
             f.level = options[:level] || ::ProactiveSupport::INFO
-            f.debug_params = HashWithIndifferentAccess.new options[:debug_params]
+            f.debug_params = clean_object options[:debug_params]
             f.tags = options[:tags]
             f.is_transient = options.fetch(:transient, true) ? true : false
             f.last_triggered_at = ::Time.now
@@ -41,6 +41,14 @@ module ProactiveSupport
 
         def clear_matching(customer_id, conditions)
           ::ProactiveSupport::Flag.where(customer_id: customer_id, is_active: true).update_all({is_active: false}, conditions)
+        end
+
+        def clean_object(data)
+          if RUBY_PLATFORM == 'java'
+            # This attempts to strip out any Java objects so we serialize with compatible MRI Ruby classes
+            data = ::JSON.load(::JSON.dump(data))
+          end
+          ::HashWithIndifferentAccess.new data
         end
       end
     end
