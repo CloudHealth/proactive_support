@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    proactive_support (0.0.5)
+    proactive_support (0.0.6)
       activerecord (>= 3)
 
 GEM
