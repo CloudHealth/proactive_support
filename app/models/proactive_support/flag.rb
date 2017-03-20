@@ -1,5 +1,8 @@
 module ProactiveSupport
   class Flag < ::ActiveRecord::Base
+    # Remove this when all models are protected and protection is globally set
+    include ActiveModel::ForbiddenAttributesProtection
+
     self.table_name = 'proactive_support_flags' # Needed for activerecord-jdbc-adapter
 
     belongs_to :customer

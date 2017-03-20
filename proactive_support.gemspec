@@ -4,7 +4,6 @@ require 'proactive_support/version'
 Gem::Specification.new do |s|
   s.name        = 'proactive_support'
   s.version     = ProactiveSupport::VERSION
-  s.date        = '2016-05-03'
   s.authors     = ['Steve Frank']
   s.email       = %w(steve@cloudhealthtech.com)
   s.homepage    = 'https://github.com/CloudHealth/proactive_support/wiki'
