@@ -5,7 +5,7 @@ module ProactiveSupport
         def set(customer_id, source, identifier, filter, message, options = {})
           digest = to_digest source, identifier, filter
 
-          ::ProactiveSupport::Flag.find_or_initialize_by_customer_id_and_digest(customer_id, digest).tap do |f|
+          ::ProactiveSupport::Flag.where(customer_id: customer_id, digest: digest).first_or_initialize.tap do |f|
             f.source = source
             f.identifier = identifier
             f.filter = clean_object filter
