@@ -9,7 +9,7 @@ module ProactiveSupport
             f.source = source
             f.identifier = identifier
             f.filter = clean_object filter
-            f.message = message
+            f.message = message.to_str[0,255]  # truncate to size of db column
             f.level = options[:level] || ::ProactiveSupport::INFO
             f.debug_params = clean_object options[:debug_params]
             f.tags = options[:tags]
