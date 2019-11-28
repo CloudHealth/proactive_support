@@ -9,7 +9,7 @@ module ProactiveSupport
             f.source = source
             f.identifier = identifier
             f.filter = clean_object filter
-            f.message = message.to_str[0,255]  # truncate to size of db column
+            f.message = message.to_str[0, 255] # truncate to size of db column
             f.level = options[:level] || ::ProactiveSupport::INFO
             f.debug_params = clean_object options[:debug_params]
             f.tags = options[:tags]
@@ -40,7 +40,11 @@ module ProactiveSupport
         end
 
         def clear_matching(customer_id, conditions)
-          ::ProactiveSupport::Flag.where(customer_id: customer_id, is_active: true).update_all({is_active: false}, conditions)
+          if ActiveRecord::VERSION::MAJOR == 3
+            ::ProactiveSupport::Flag.where(customer_id: customer_id, is_active: true).update_all({is_active: false}, conditions)
+          else
+            ::ProactiveSupport::Flag.where(customer_id: customer_id, is_active: true).where(conditions).update_all(is_active: false)
+          end
         end
 
         def clean_object(data)
